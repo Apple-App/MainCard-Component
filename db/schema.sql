@@ -1,4 +1,4 @@
-CREATE TABLE moviesTable (
+CREATE TABLE moviestable (
   id INT PRIMARY KEY,
   title text,
   year INT,

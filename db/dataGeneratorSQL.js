@@ -2,10 +2,11 @@ const faker = require('faker')
 const youTubeVids = require('./youTubeLinks.js')
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const csvPath = '/usr/local/var/postgres/moviesCSV.csv';
+const csvPathRemote= '/home/ubuntu/moviesCSV.csv'
 const {Pool} = require('pg');
+const conString = 'postgres://postgres@18.216.154.184:5432/movies'
 const q = 'copy moviestable(id,title,year,video,image,ac_tomatometer,ac_average_rating,ac_reviews_counted,ac_fresh,ac_rotten,consensus,audience_score,aud_average_rating,user_ratings,tc_tomatometer,tc_average_rating,tc_reviews_counted,tc_fresh,tc_rotten) FROM \'moviesCSV.csv\' delimiter \',\' csv header;'
-
-
+const qRemote = 'copy moviestable(id,title,year,video,image,ac_tomatometer,ac_average_rating,ac_reviews_counted,ac_fresh,ac_rotten,consensus,audience_score,aud_average_rating,user_ratings,tc_tomatometer,tc_average_rating,tc_reviews_counted,tc_fresh,tc_rotten) FROM \'/home/ubuntu/moviesCSV.csv\' delimiter \',\' csv header;'
 
 
 
@@ -63,7 +64,7 @@ let generateData = (n) => {
 
 
 const csvWriter = createCsvWriter({
-  path : csvPath,
+  path : csvPathRemote,
   header : [
     {id: 'id', title: 'id'},
     {id: 'title', title : 'title'},
@@ -87,8 +88,16 @@ const csvWriter = createCsvWriter({
   ]
 })
 
-const pool = new Pool({
-  user : 'AriEfron',
+// const pool = new Pool({ //local 
+//   user : 'AriEfron',
+//   host : 'localhost',
+//   database : 'movies',
+//   password : '',
+//   port : 5432
+// })
+
+const pool = new Pool({ //remote 
+  user : 'postgres',
   host : 'localhost',
   database : 'movies',
   password : '',
@@ -97,13 +106,13 @@ const pool = new Pool({
 
 
 const dataPop = () => {
-  let dataArr = generateData(100000);
+  let dataArr = generateData(100);
   csvWriter.writeRecords(dataArr)
   .then(() => {
-    if (idCounter < 10000000) {
+    if (idCounter < 100) {
       dataPop()
     } else {      
-      pool.query(q, (err, res) => {
+      pool.query(qRemote, (err, res) => {
         console.timeEnd('100000')
         pool.end()
       })
