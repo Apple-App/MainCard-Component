@@ -113,6 +113,7 @@ const dataPop = () => {
       dataPop()
     } else {      
       pool.query(qRemote, (err, res) => {
+        if (err) console.log(err)
         console.timeEnd('100000')
         pool.end()
       })
