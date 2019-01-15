@@ -2,11 +2,9 @@ const faker = require('faker')
 const youTubeVids = require('./youTubeLinks.js')
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const csvPath = '/usr/local/var/postgres/moviesCSV.csv';
-const csvPathRemote= '/home/ubuntu/moviesCSV.csv'
 const {Pool} = require('pg');
-const conString = 'postgres://postgres@18.216.154.184:5432/movies'
 const q = 'copy moviestable(id,title,year,video,image,ac_tomatometer,ac_average_rating,ac_reviews_counted,ac_fresh,ac_rotten,consensus,audience_score,aud_average_rating,user_ratings,tc_tomatometer,tc_average_rating,tc_reviews_counted,tc_fresh,tc_rotten) FROM \'moviesCSV.csv\' delimiter \',\' csv header;'
-const qRemote = 'copy moviestable(id,title,year,video,image,ac_tomatometer,ac_average_rating,ac_reviews_counted,ac_fresh,ac_rotten,consensus,audience_score,aud_average_rating,user_ratings,tc_tomatometer,tc_average_rating,tc_reviews_counted,tc_fresh,tc_rotten) FROM \'/home/ubuntu/moviesCSV.csv\' delimiter \',\' csv header;'
+// const qRemote = '\\copy moviestable(id,title,year,video,image,ac_tomatometer,ac_average_rating,ac_reviews_counted,ac_fresh,ac_rotten,consensus,audience_score,aud_average_rating,user_ratings,tc_tomatometer,tc_average_rating,tc_reviews_counted,tc_fresh,tc_rotten) FROM \'moviesCSV.csv\' delimiter \',\' csv header;'
 
 
 
@@ -64,7 +62,7 @@ let generateData = (n) => {
 
 
 const csvWriter = createCsvWriter({
-  path : csvPathRemote,
+  path : csvPath,
   header : [
     {id: 'id', title: 'id'},
     {id: 'title', title : 'title'},
@@ -96,27 +94,28 @@ const csvWriter = createCsvWriter({
 //   port : 5432
 // })
 
-const pool = new Pool({ //remote 
-  user : 'postgres',
-  host : 'localhost',
-  database : 'movies',
-  password : '',
-  port : 5432
-})
+// const pool = new Pool({ //remote 
+//   user : 'postgres',
+//   host : 'localhost',
+//   database : 'movies',
+//   password : '',
+//   port : 5432
+// })
 
 
 const dataPop = () => {
-  let dataArr = generateData(100);
+  let dataArr = generateData(1000);
   csvWriter.writeRecords(dataArr)
   .then(() => {
-    if (idCounter < 100) {
+    if (idCounter < 1000) {
       dataPop()
     } else {      
-      pool.query(qRemote, (err, res) => {
-        if (err) console.log(err)
-        console.timeEnd('100000')
-        pool.end()
-      })
+      // pool.query(qRemote, (err, res) => {
+      //   if (err) console.log(err)
+      //   console.timeEnd('100000')
+      //   pool.end()
+      // })
+      console.timeEnd('100000')
     
     }
   })

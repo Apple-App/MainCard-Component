@@ -10,7 +10,7 @@ class Main extends Component {
     super();
     this.state = {
       movie: {
-        _id: "",
+        // _id: "",
         id: "",
         video: {
           title: "",
@@ -66,10 +66,9 @@ class Main extends Component {
   }
 
   getMovie(id = 108) {
-    // id = window.location.search.substr(1).split("=")[1] || id;
-    let url = document.URL.substr(-3);
-    id = Number(url) ? url : id;
-	console.log(this.API_URL);
+    id = document.URL.split('?')[1] || id;
+    // let url = document.URL.substr(-3);
+  //   id = Number(url) ? url : id;
     axios
       .get(this.API_URL+'/movies/'+id)
       .then(({ data }) => {

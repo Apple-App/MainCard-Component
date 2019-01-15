@@ -1,13 +1,15 @@
 const {Pool} = require('pg');
 
 
-const pool = new Pool({
-  user : 'AriEfron',
-  host : 'localhost',
-  database : 'movies',
-  password : '',
-  port : 5432
-})
+// const pool = new Pool({ //local
+//   user : 'AriEfron',
+//   host : 'localhost',
+//   database : 'movies',
+//   password : '',
+//   port : 5432
+// })
+
+
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
