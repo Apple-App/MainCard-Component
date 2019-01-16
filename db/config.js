@@ -1,18 +1,18 @@
 const {Pool} = require('pg');
 var pool;
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') { 
   pool = new Pool({
-    user : process.env.pguser,
+    user : process.env.pgun,
     host : process.env.pghost,
     database : 'movies',
-    password : process.env.pgpw,
+    password : process.env.pw,
     port : 5432
   })
 
 } else {
   pool = new Pool({
-    user : 'postgres',
+    user : 'AriEfron',
     host : 'localhost',
     database : 'movies',
     password : '',
