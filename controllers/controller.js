@@ -46,6 +46,7 @@ module.exports = {
     res.send(dataObj)
   })
   .catch(err => {
+    console.log(err)
     res.sendStatus(500)
   })
   }
