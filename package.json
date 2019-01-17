@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/Themyscira19/MainCard-Component#readme",
   "scripts": {
-    "start": "node server.js",
+    "start": "webpack -p && node server/server.js",
     "build": "webpack -p",
     "test": "jest --verbose --detectOpenHandles",
     "test:watch": "jest --watchAll --verbose",
