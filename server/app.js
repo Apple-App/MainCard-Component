@@ -21,10 +21,11 @@ app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, "/../public")));
 app.use(compression());
 
-console.log(process.env.pgun, process.env.pgpw, process.env.pghost)
-
-
 app.use("/movies", routes);
+
+app.get('/loaderio-47eba8582c0886cbf81a94fbea30f7d5', (req, res) => {
+  res.sendFile(path.join(__dirname, "/../loaderio-47eba8582c0886cbf81a94fbea30f7d5.txt"))
+})
 
 module.exports = app;
 //exported so tests can be run without starting server
