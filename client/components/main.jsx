@@ -46,7 +46,7 @@ class Main extends Component {
       all: true,
       trailer: false
     };
-    this.API_URL = process.env.NODE_ENV === 'production' ? 'http://18.224.166.95' : 'http://localhost:9001';
+    this.API_URL = process.env.NODE_ENV === 'production' ? 'http://18.216.97.64' : 'http://localhost:9001';
     this.getMovie = this.getMovie.bind(this);
     this.toggleTopCritics = this.toggleTopCritics.bind(this);
     this.toggleTrailer = this.toggleTrailer.bind(this);
