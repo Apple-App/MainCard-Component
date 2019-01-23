@@ -41,6 +41,7 @@
     "react": "^16.6.3",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.6.3",
+    "redis": "^2.8.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
