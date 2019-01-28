@@ -17,7 +17,7 @@ const routes = require("./routes/routes.js");
 app.use(cors());
 
 app.use(bodyParser.json());
-app.use(morgan('dev'))
+// app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, "/../public")));
 app.use(compression());
 

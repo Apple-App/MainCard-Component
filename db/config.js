@@ -1,4 +1,21 @@
 const {Pool} = require('pg');
+const redis = require('redis');
+
+var redisClient = redis.createClient({
+  host: 'rtest',
+  port : '6379'
+})
+
+
+redisClient.on('ready', () => {
+  console.log('redis connected')
+})
+
+redisClient.on('error', () => {
+  console.log('error connecting to redis')
+})
+
+
 var pool;
 
 if (process.env.NODE_ENV === 'production') { 
@@ -20,7 +37,9 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-module.exports = pool;
+
+
+module.exports = {pool, redisClient};
 
 
 

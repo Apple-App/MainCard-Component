@@ -6,6 +6,7 @@ const {
   redisClient
 } = require('../db/config.js')
 
+
 module.exports = {
   getOne: (req, res) => {
     let {
@@ -13,6 +14,7 @@ module.exports = {
     } = req.params;
     redisClient.get(id.toString(), (err, result) => {
       if (result !== null) {
+        // console.log('redis ran')
         res.send(JSON.parse(result))
       } else {
         pool.query(`select * from moviestable where id=${id};`)
@@ -53,10 +55,11 @@ module.exports = {
               }
 
             }]
+            res.send(dataObj)
             redisClient.set(dataObj[0].id.toString(), JSON.stringify(dataObj), 'EX', 60 * 60 * 4, (err, response) => {
               if (err) console.log(err)
+              // console.log('i saved')
             })
-            res.send(dataObj)
           })
           .catch(err => {
             console.log(err)
